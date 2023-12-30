@@ -28,7 +28,7 @@ export function Header({ links }: HeaderProps) {
     <header className="supports-backdrop-blur: bg-slate-50/95 sticky top-0 z-50 overflow-visible py-3 backdrop-blur dark:bg-gray-900/75">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
         <div className="flex items-center">
-          <div className="hidden space-x-2 sm:block">
+          <div className=" space-x-2 sm:block">
             {links.data.links.map((link, index) => (
               <Link key={index} href={link.url}>
                 <span
