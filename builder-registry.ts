@@ -1,7 +1,6 @@
 "use client";
 import { Builder } from "@builder.io/react";
 import Counter from "./components/Counter/Counter";
-import { Footer } from "./components/Footer";
 import Hero from "./app/ui/hero";
 
 Builder.registerComponent(Counter, {
@@ -12,10 +11,6 @@ Builder.registerComponent(Counter, {
       type: "number",
     },
   ],
-});
-
-Builder.registerComponent(Footer, {
-  name: "Footer",
 });
 
 Builder.registerComponent(Hero, {
