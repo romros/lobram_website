@@ -18,10 +18,19 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".", // Aquesta línia és crucial, estableix la base per a les resolucions relatives.
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"], // Això apunta a tots els fitxers/directoris en la carpeta arrel.
+      "@/app/*": ["app/*"] // Això apunta específicament a fitxers/directoris dins de 'app/'.
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/[...page]",
+    "app/[[...page.tsx]]"
+  ],
   "exclude": ["node_modules"]
 }
