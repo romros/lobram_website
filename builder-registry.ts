@@ -2,6 +2,7 @@
 import { Builder } from "@builder.io/react";
 import Counter from "./components/Counter/Counter";
 import Hero from "./app/ui/hero";
+import Historia from "./components/history";
 
 Builder.registerComponent(Counter, {
   name: "Counter",
@@ -18,8 +19,11 @@ Builder.registerComponent(Hero, {
   inputs: [
     {
       name: "backgroundImage",
-      type: "string",
+      type: "file",
       required: true,
+      allowedFileTypes: ["jpeg", "jpg", "png", "svg"],
+      defaultValue:
+        "https://cdn.builder.io/api/v1/image/assets%2Fpwgjf0RoYWbdnJSbpBAjXNRMe9F2%2Ffb27a7c790324294af8be1c35fe30f4d",
     },
     {
       name: "subtitle",
@@ -30,6 +34,57 @@ Builder.registerComponent(Hero, {
       name: "title",
       type: "string",
       required: true,
+    },
+  ],
+});
+
+Builder.registerComponent(Historia, {
+  name: "Historia",
+  inputs: [
+    {
+      name: "backgroud_color_button",
+      type: "color",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+    },
+    {
+      name: "description",
+      type: "longText",
+    },
+    {
+      name: "foto_esquerra",
+      type: "boolean",
+    },
+    {
+      name: "hover_backgroud_color_button",
+      type: "color",
+    },
+    {
+      name: "hover_text_color_button",
+      type: "string",
+    },
+    {
+      name: "image",
+      type: "file",
+      required: true,
+    },
+    {
+      name: "link_button",
+      type: "string",
+    },
+    {
+      name: "text_button",
+      type: "string",
+    },
+    {
+      name: "text_color_button",
+      type: "color",
+    },
+    {
+      name: "title",
+      type: "string",
     },
   ],
 });
