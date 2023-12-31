@@ -69,17 +69,20 @@ export default function Historia(props: {
 
       {/* Columna de la Imatge */}
       <div className="md:w-1/2">
-        <Image
-          src={props.image}
-          alt="props.title"
-          sizes="100vw"
+        <div
+          className="flex flex-col items-stretch relative w-full"
           style={{
-            width: "100%",
-            height: "auto",
+            height: "60vh",
           }}
-          width={500}
-          height={500} // Aquests valors haurien de coincidir amb les dimensions reals de la teva imatge
-        />
+        >
+          <Image
+            src={props.image}
+            alt="props.title"
+            sizes="100vw"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
       </div>
     </div>
   );

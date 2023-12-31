@@ -1,6 +1,7 @@
 import { overlock, quattrocento } from "@/app/ui/fonts";
 import Hero from "./ui/hero";
 import Historia from "@/components/history";
+import Historia2 from "@/components/historia2";
 
 export default function Home() {
   return (
@@ -25,6 +26,12 @@ export default function Home() {
         backgroud_color_button="blue-700"
         text_color_button="white"
         link_button="/activitats"
+      />
+      <Historia
+        image="/sala_buda.jpg"
+        title="Pràctiques contemplatives"
+        description="Pràctiques de meditació i atenció plena per a desenvolupar la capacitat de presència i consciència.,Pràctiques de moviment conscient per a harmonitzar el cos i la ment., Pràctiques de respiració per a desenvolupar la capacitat de concentració i relaxació."
+        foto_esquerra={true}
       />
     </main>
   );
