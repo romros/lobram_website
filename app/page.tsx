@@ -23,15 +23,15 @@ export default function Home() {
         diàlegs guiats i exercicis pràctics que busquen l'harmonia entre cos,
         ment i esperit."
         text_button="Veure activitats"
-        backgroud_color_button="blue-700"
-        text_color_button="white"
         link_button="/activitats"
+        background_color_button="rgba(57, 44, 118, 1)"
       />
       <Historia
         image="/sala_buda.jpg"
         title="Pràctiques contemplatives"
         description="Pràctiques de meditació i atenció plena per a desenvolupar la capacitat de presència i consciència.,Pràctiques de moviment conscient per a harmonitzar el cos i la ment., Pràctiques de respiració per a desenvolupar la capacitat de concentració i relaxació."
         foto_esquerra={true}
+        link_button="/activitats"
       />
     </main>
   );

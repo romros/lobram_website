@@ -44,50 +44,63 @@ Builder.registerComponent(Hero, {
 Builder.registerComponent(Historia, {
   name: "Historia",
   inputs: [
-    {
-      name: "backgroud_color_button",
-      type: "color",
-    },
-    {
-      name: "backgroundColor",
-      type: "color",
-    },
-    {
-      name: "description",
-      type: "longText",
-    },
-    {
-      name: "foto_esquerra",
-      type: "boolean",
-    },
-    {
-      name: "hover_backgroud_color_button",
-      type: "color",
-    },
-    {
-      name: "hover_text_color_button",
-      type: "string",
-    },
+    // Comença amb els paràmetres visuals principals.
     {
       name: "image",
       type: "file",
       required: true,
+      helperText: "Imatge principal de l'història",
     },
     {
-      name: "link_button",
-      type: "string",
+      name: "backgroundColor",
+      type: "color",
+      helperText: "Color de fons de l'història",
     },
     {
-      name: "text_button",
-      type: "string",
+      name: "background_color_button",
+      type: "color",
+      helperText: "Color de fons del botó",
     },
     {
       name: "text_color_button",
       type: "color",
+      helperText: "Color del text del botó",
     },
+
+    // Després, detalls del contingut textual.
     {
       name: "title",
       type: "string",
+      helperText: "Títol de l'història",
+    },
+    {
+      name: "description",
+      type: "longText",
+      helperText: "Descripció detallada de l'història",
+    },
+    {
+      name: "text_button",
+      type: "string",
+      helperText: "Text del botó",
+    },
+
+    // Configuracions d'enllaç i comportament.
+    {
+      name: "link_button",
+      type: "string",
+      helperText: "Enllaç al qual el botó dirigirà",
+    },
+    {
+      name: "foto_esquerra",
+      type: "boolean",
+      helperText: "Determina si la foto ha d'estar a l'esquerra",
+    },
+
+    // Paràmetres tècnics i d'estil extra.
+    {
+      name: "extra_className",
+      type: "string",
+      helperText: "Classe extra per al component de Tailwind CSS",
     },
   ],
 });
