@@ -5,6 +5,7 @@ export default function Hero(props: {
   title: string;
   subtitle: string;
   backgroundImage: string;
+  logo?: string;
 }) {
   // Ajusta aquestes dimensions al tamany que vulguis per al teu logo
   const logoWidth = 120;
@@ -30,21 +31,25 @@ export default function Hero(props: {
         >
           {props.subtitle}
         </p>
-        <div className="mt-4 flex justify-center items-center">
-          <div className="backdrop-blur-sm rounded-full p-2 bg-white/30">
-            <Image
-              src="/logo_bram.png" // Camí relatiu a la carpeta public
-              alt="Logo de Lo Bram"
-              width={logoWidth} // Mida del logo
-              height={logoHeight} // Mida del logo
-              className="relative" // Assegura't que la imatge està al mig del fons desenfocat
-              style={{
-                filter: "saturate(1.5) brightness(1.2)",
-                boxShadow: "0 0 0 rgba(0, 255, 0, 0.5)",
-              }}
-            />
+
+        {/* Logo si hi ha logo*/}
+        {props.logo && (
+          <div className="mt-4 flex justify-center items-center">
+            <div className="backdrop-blur-sm rounded-full p-2 bg-white/30">
+              <Image
+                src={props.logo} // Ruta de la imatge
+                alt="Logo de Lo Bram"
+                width={logoWidth} // Mida del logo
+                height={logoHeight} // Mida del logo
+                className="relative" // Assegura't que la imatge està al mig del fons desenfocat
+                style={{
+                  filter: "saturate(1.5) brightness(1.2)",
+                  boxShadow: "0 0 0 rgba(0, 255, 0, 0.5)",
+                }}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

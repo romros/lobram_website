@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import { log } from "console";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,8 +14,6 @@ export default function Historia(props: {
   text_button?: string;
   backgroud_color_button?: string;
   text_color_button?: string;
-  hover_backgroud_color_button?: string;
-  hover_text_color_button?: string;
   link_button?: string;
 }) {
   let backgroundColor = props.backgroundColor || "";
@@ -21,14 +21,21 @@ export default function Historia(props: {
   let description_font = props.description_font || "";
   let reverse = props.foto_esquerra == undefined ? false : props.foto_esquerra;
   let backgroud_color_button = props.backgroud_color_button || "blue-700";
-  let text_color_button = props.text_color_button || "text-white";
-  let hover_backgroud_color_button =
-    props.hover_backgroud_color_button || "blue-800";
-  let hover_text_color_button =
-    props.hover_text_color_button || "ring-blue-800";
+  let text_color_button = props.text_color_button || "white";
 
   const flexOrderClass = reverse ? "md:flex-row-reverse" : "md:flex-row";
 
+  const buttonClass = clsx(
+    "inline-block font-quattrocento px-6 py-2 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-opacity-50",
+    backgroud_color_button.startsWith("#")
+      ? "bg-[" + `${backgroud_color_button}` + "]"
+      : "bg-" + `${backgroud_color_button}`,
+    text_color_button.startsWith("#")
+      ? "text-[" + `${text_color_button}` + "]"
+      : "text-" + `${text_color_button}`,
+    "hover:bg-opacity-80",
+    "hover:shadow-lg" // Afegeix una ombra més gran al fer hover
+  );
   return (
     <div
       className={`flex flex-col ${flexOrderClass}`}
@@ -49,7 +56,11 @@ export default function Historia(props: {
         {props.link_button && (
           <Link
             href={props.link_button}
-            className={`inline-block bg-${backgroud_color_button} ${text_color_button} font-quattrocento px-6 py-2 rounded-md transition duration-300 ease-in-out hover:bg-${hover_backgroud_color_button} focus:outline-none focus:ring-2 focus:${hover_text_color_button} focus:ring-opacity-50`}
+            className={buttonClass}
+            style={{
+              backgroundColor: backgroud_color_button,
+              color: text_color_button,
+            }}
           >
             {props.text_button || "Veure activitats"}
           </Link>
@@ -60,7 +71,7 @@ export default function Historia(props: {
       <div className="md:w-1/2">
         <Image
           src={props.image}
-          alt="Grup de persones"
+          alt="props.title"
           sizes="100vw"
           style={{
             width: "100%",

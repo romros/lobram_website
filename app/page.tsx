@@ -9,6 +9,7 @@ export default function Home() {
         title="Escola d'Ensenyances de Gurdjieff"
         subtitle="Grups d'autoconeixement inspirats en 4rt camí"
         backgroundImage="foto_casa_original.jpg"
+        logo="/logo_bram.png"
       />
       <Historia
         image="/grup2.jpeg"
@@ -22,9 +23,7 @@ export default function Home() {
         ment i esperit."
         text_button="Veure activitats"
         backgroud_color_button="blue-700"
-        text_color_button="text-white"
-        hover_backgroud_color_button="blue-800"
-        hover_text_color_button="ring-blue-800"
+        text_color_button="white"
         link_button="/activitats"
       />
     </main>

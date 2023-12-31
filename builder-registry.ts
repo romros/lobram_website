@@ -20,10 +20,13 @@ Builder.registerComponent(Hero, {
     {
       name: "backgroundImage",
       type: "file",
-      required: true,
-      allowedFileTypes: ["jpeg", "jpg", "png", "svg"],
       defaultValue:
         "https://cdn.builder.io/api/v1/image/assets%2Fpwgjf0RoYWbdnJSbpBAjXNRMe9F2%2Ffb27a7c790324294af8be1c35fe30f4d",
+      required: true,
+    },
+    {
+      name: "logo",
+      type: "file",
     },
     {
       name: "subtitle",
