@@ -41,6 +41,15 @@ export default function Home() {
         link_button="/lespai"
         text_button="Veure l'espai"
       />
+      <Historia
+        image="/grup_dances.jpg"
+        title="Dances sagrades de Gurdjieff"
+        description="<p>Des de setembre de 2023, Lo Bram esdevé l'escenari d'un curs profund en
+          l'art dels <strong >Moviments de Gurdjieff</strong>.</p><p>Un espai on respirar la tranquil·litat i endinsar-se en un treball interior que enllaça l'antiga saviesa amb la pràctica contemporània. Durant tres anys, els caps de setmana es transformen en un temps dedicat a la reflexió i l'aprenentatge, on cada gest i moviment s'infon de significat.</p><p>Aquí, a tocar de Barcelona, trobaràs una comunitat càlida, pronta a acollir-te en aquesta exploració del ser. </p>"
+        foto_esquerra={false}
+        link_button="https://danzasgurdjieff7.wordpress.com"
+        text_button="Veure informació del curs"
+      />
     </main>
   );
 }
