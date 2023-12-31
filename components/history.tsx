@@ -1,8 +1,6 @@
 "use client";
 
-import { darkenRGBA } from "@/lib/utils";
 import clsx from "clsx";
-import { log } from "console";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -40,14 +38,11 @@ export default function Historia(props: {
   let buttonStyleHover: any = {};
   if (props.background_color_button) {
     buttonStyle.backgroundColor = props.background_color_button;
-    buttonStyleHover.backgroundColor = darkenRGBA(
-      props.background_color_button,
-      0.2
-    );
+    buttonStyleHover.filter = "brightness(80%)";
+    buttonStyleHover.backgroundColor = props.background_color_button;
   }
   if (props.text_color_button) {
     buttonStyle.color = props.text_color_button;
-    buttonStyleHover.color = darkenRGBA(props.text_color_button, 0.1);
   }
   console.log("buttonStyle", buttonStyle);
   console.log("buttonStyleHover", buttonStyleHover);
@@ -70,22 +65,24 @@ export default function Historia(props: {
           {props.title || "Qui som?"}
         </h1>
         <p
-          // oldria que fos px-20 en pantalla gran  i en mkobils px-0
           className={`${description_font} mb-6 lg:px-20 md:px-10 sm:px-0 py-8 text-lg sm:text-normal`}
+          dangerouslySetInnerHTML={{
+            __html: props.description || "Descripció",
+          }}
         >
-          {props.description || "Descripció "}
+          {/* Contingut eliminat ja que està sent inserit mitjançant dangerouslySetInnerHTML */}
         </p>
+
         {/* Botó que porta a les activitats . nomes mostra link si existeix link_button*/}
         {props.link_button && (
-          <Link href={props.link_button}>
-            <a
-              className={buttonClass}
-              style={hover ? buttonStyleHover : buttonStyle}
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-            >
-              {props.text_button || "Veure activitats"}
-            </a>
+          <Link
+            href={props.link_button}
+            className={buttonClass}
+            style={hover ? buttonStyleHover : buttonStyle}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
+            {props.text_button || "Veure activitats"}
           </Link>
         )}
       </div>

@@ -30,7 +30,7 @@ export function Header({ links }: HeaderProps) {
         <div className="flex items-center">
           <div className=" space-x-2 sm:block">
             {links.data.links.map((link, index) => (
-              <Link key={index} href={link.url}>
+              <Link key={index} href={link.url} legacyBehavior>
                 <span
                   key={index}
                   className={clsx(

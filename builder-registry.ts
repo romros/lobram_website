@@ -1,7 +1,7 @@
 "use client";
 import { Builder } from "@builder.io/react";
 import Counter from "./components/Counter/Counter";
-import Hero from "./app/ui/hero";
+import Hero from "./components/hero";
 import Historia from "./components/history";
 
 Builder.registerComponent(Counter, {
@@ -75,7 +75,7 @@ Builder.registerComponent(Historia, {
     },
     {
       name: "description",
-      type: "longText",
+      type: "richText",
       helperText: "Descripció detallada de l'història",
     },
     {

@@ -1,7 +1,5 @@
-import { overlock, quattrocento } from "@/app/ui/fonts";
-import Hero from "./ui/hero";
+import Hero from "@/components/hero";
 import Historia from "@/components/history";
-import Historia2 from "@/components/historia2";
 
 export default function Home() {
   return (
@@ -14,8 +12,6 @@ export default function Home() {
       />
       <Historia
         image="/grup2.jpeg"
-        title_font={overlock.className}
-        description_font={quattrocento.className}
         title="Escola d'Ensenyances de Gurdjieff"
         description="Som un grup dedicat al treball personal i autoconeixement, inspirats
         en els ensenyaments del 4rt camí de Gurdjieff. Oferim un espai per
@@ -24,14 +20,26 @@ export default function Home() {
         ment i esperit."
         text_button="Veure activitats"
         link_button="/activitats"
-        background_color_button="rgba(57, 44, 118, 1)"
       />
       <Historia
         image="/sala_buda.jpg"
-        title="Pràctiques contemplatives"
-        description="Pràctiques de meditació i atenció plena per a desenvolupar la capacitat de presència i consciència.,Pràctiques de moviment conscient per a harmonitzar el cos i la ment., Pràctiques de respiració per a desenvolupar la capacitat de concentració i relaxació."
+        title="Espai Lo Bram"
+        description="<p>
+        Lo Bram, un refugi de pau i aprenentatge, convida a la descoberta del 4rt Camí
+        i les Danses Sagrades de Gurdjieff. En aquest lloc acollidor, ple de llum i
+        espai, s'obren oportunitats per a pràctiques meditatives i tallers
+        enriquidors.
+      </p>
+      <p>
+        Conscients del valor d'un entorn segur,
+        <strong>oferim la possibilitat de llogar aquest espai especial</strong> per a
+        activitats que harmonitzin amb valors de creixement i comunitat. A Lo Bram,
+        cada recó és una invitació a créixer i compartir junts.
+      </p>
+      "
         foto_esquerra={true}
-        link_button="/activitats"
+        link_button="/lespai"
+        text_button="Veure l'espai"
       />
     </main>
   );
