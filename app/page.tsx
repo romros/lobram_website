@@ -1,3 +1,4 @@
+import ContactMap from "@/components/contactMap";
 import Hero from "@/components/hero";
 import Historia from "@/components/history";
 
@@ -24,19 +25,13 @@ export default function Home() {
       <Historia
         image="/sala_buda.jpg"
         title="Espai Lo Bram"
-        description="<p>
-        Lo Bram, un refugi de pau i aprenentatge, convida a la descoberta del 4rt Camí
+        // vull escriure un text llarg en html dins de "description" però no sé com fer-ho
+        description="<p>Lo Bram, un refugi de pau i aprenentatge, convida a la descoberta del 4rt Camí 
         i les Danses Sagrades de Gurdjieff. En aquest lloc acollidor, ple de llum i
         espai, s'obren oportunitats per a pràctiques meditatives i tallers
-        enriquidors.
-      </p>
-      <p>
-        Conscients del valor d'un entorn segur,
-        <strong>oferim la possibilitat de llogar aquest espai especial</strong> per a
+        enriquidors.</p><p>Conscients del valor d'un entorn segur, <strong>oferim la possibilitat de llogar aquest espai especial</strong> per a
         activitats que harmonitzin amb valors de creixement i comunitat. A Lo Bram,
-        cada recó és una invitació a créixer i compartir junts.
-      </p>
-      "
+        cada recó és una invitació a créixer i compartir junts.</p>"
         foto_esquerra={true}
         link_button="/lespai"
         text_button="Veure l'espai"
@@ -49,6 +44,12 @@ export default function Home() {
         foto_esquerra={false}
         link_button="https://danzasgurdjieff7.wordpress.com"
         text_button="Veure informació del curs"
+      />
+      <ContactMap
+        title="Posa't en Contacte"
+        description="Si tens alguna pregunta, no dubtis en contactar-nos. Estarem encantats d'atendre't."
+        // color del fons del formulari: fosc blau
+        backgroundColor="#e5e7eb"
       />
     </main>
   );
