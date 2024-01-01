@@ -35,6 +35,7 @@ export default function ContactMap(props: {
       },
       {
         duration: 4000,
+        position: "bottom-center",
       }
     );
   };
