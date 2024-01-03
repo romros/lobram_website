@@ -44,9 +44,6 @@ export default function Historia(props: {
   if (props.text_color_button) {
     buttonStyle.color = props.text_color_button;
   }
-  console.log("buttonStyle", buttonStyle);
-  console.log("buttonStyleHover", buttonStyleHover);
-  console.log("hover", hover ? "true" : "false");
 
   const buttonClass = clsx(
     "inline-block font-quattrocento px-6 py-2 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-opacity-50",
