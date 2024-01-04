@@ -45,6 +45,7 @@ export default function EnsenyantsTreball(props: EnsenyantsTreballProps) {
         <div className="">
           {teachers.map((teacher) => (
             <MiniFitxa
+              key={teacher.name}
               titol={teacher.name}
               container_classname="mb-6"
               subtitol={teacher.role}
