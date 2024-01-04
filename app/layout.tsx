@@ -1,13 +1,9 @@
 import "@/app/ui/globals.css";
 
 import { Metadata } from "next";
-import { builder } from "@builder.io/sdk";
 import { Header } from "@/app/ui/header";
 import { overlock, quattrocento } from "@/app/ui/fonts";
 import Footer from "@/app/ui/footer";
-
-// Builder Public API Key set in .env file
-builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
 export const metadata: Metadata = {
   title: "Lo Bram",
@@ -20,16 +16,33 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   // load structured data from builder.io named "main-links" of type main-links
-  const links = await builder.get("navigation-links", {}).toPromise();
+  const links = {
+    home: {
+      title: "Inici",
+      href: "/",
+    },
+    activitats: {
+      title: "Activitats",
+      href: "/activitats",
+    },
+    lEspai: {
+      title: "L'Espai",
+      href: "/lespai",
+    },
+    contacte: {
+      title: "Contacte",
+      href: "/contacte",
+    },
+  };
 
   return (
-    <html lang="ca">
+    <html lang="ca" className="light">
       <head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </head>
 
       <body className={`${quattrocento.className} bg-blue-50 text-gray-700`}>
-        <Header links={links} />
+        <Header links={Object.values(links)} />
         {children}
         <Footer />
       </body>

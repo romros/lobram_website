@@ -27,7 +27,7 @@ export const lato = Lato({
 
 export const quattrocento = Quattrocento({
   subsets: ["latin", "latin-ext"],
-  weight: "400",
+  weight: ["400", "700"],
 });
 
 export const overlock = Overlock({

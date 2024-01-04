@@ -8,7 +8,7 @@ export default function Home() {
       <Hero
         title="Escola d'Ensenyances de Gurdjieff"
         subtitle="Grups d'autoconeixement inspirats en 4rt camí"
-        backgroundImage="foto_casa_original.jpg"
+        backgroundImage="/foto_casa_original.jpg"
         logo="/logo_bram.png"
       />
 

@@ -1,20 +1,31 @@
 import { overlock, quattrocento } from "@/app/ui/fonts";
 import Image from "next/image";
-
+import clsx from "clsx";
 export default function Hero(props: {
   title: string;
-  subtitle: string;
+  height?: string;
+  subtitle?: string;
   backgroundImage: string;
   logo?: string;
 }) {
   // Ajusta aquestes dimensions al tamany que vulguis per al teu logo
   const logoWidth = 120;
   const logoHeight = 120;
+
+  const background_classname = clsx(
+    "relative w-full flex items-center justify-center bg-cover bg-center bg-no-repeat",
+    props.height ? props.height : "h-[85vh]"
+  );
+
   return (
-    <div
-      className="relative w-full h-[85vh] flex items-center justify-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url('${props.backgroundImage}')` }}
-    >
+    <div className={`relative ${background_classname}`}>
+      <Image
+        src={props.backgroundImage}
+        alt="Background"
+        layout="fill" // Makes the image fill the container
+        objectFit="cover" // Keeps aspect ratio and covers the entire area
+        className="z-0" // Ensure the image is in the background
+      />
       <div className="bg-black bg-opacity-10 absolute top-0 right-0 bottom-0 left-0"></div>
       <div className="z-10 text-white text-center">
         {/* Títol amb mida adaptable */}
@@ -25,13 +36,13 @@ export default function Hero(props: {
           {props.title}
         </h1>
 
-        {/* Subtítol amb mida adaptable */}
-        <p
-          className={`${overlock.className} text-xl sm:text-xl md:text-2xl lg:text-5xl`}
-        >
-          {props.subtitle}
-        </p>
-
+        {props.subtitle && (
+          <p
+            className={`${overlock.className} text-xl sm:text-xl md:text-2xl lg:text-5xl`}
+          >
+            {props.subtitle}
+          </p>
+        )}
         {/* Logo si hi ha logo*/}
         {props.logo && (
           <div className="mt-4 flex justify-center items-center">

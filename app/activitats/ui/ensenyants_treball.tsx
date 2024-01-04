@@ -1,6 +1,6 @@
 import React from "react";
 import { overlock, quattrocento } from "@/app/ui/fonts";
-import Image from "next/image";
+import MiniFitxa from "@/components/mini_fitxa";
 
 const teachers = [
   {
@@ -29,9 +29,9 @@ const teachers = [
   },
 ];
 
-export interface DancesSectionProps {}
+export interface EnsenyantsTreballProps {}
 
-export default function DancesSection(props: DancesSectionProps) {
+export default function EnsenyantsTreball(props: EnsenyantsTreballProps) {
   return (
     <div
       className={` ${overlock.className} text-xl  flex flex-col justify-center items-center my-8 text-slate-300`}
@@ -44,21 +44,16 @@ export default function DancesSection(props: DancesSectionProps) {
         </h1>
         <div className="">
           {teachers.map((teacher) => (
-            <div key={teacher.name} className="flex items-start mb-6">
-              <img
-                src={teacher.imageUrl}
-                alt={`Foto de ${teacher.name}`}
-                className="flex-none w-24 h-24 mr-4 rounded-lg" // La classe rounded-lg dóna els costats lleugerament arrodonits.
-                // Assegura't que les imatges tenen les dimensions correctes i estan optimitzades
-              />
-              <div className="flex-grow">
-                <h3 className="text-lg text-slate-200 font-semibold">
-                  {teacher.name}
-                </h3>
-                <p className="text-sm text-slate-400">{teacher.role}</p>
-                <p className="text-slate-300 text-sm">{teacher.bio}</p>
-              </div>
-            </div>
+            <MiniFitxa
+              titol={teacher.name}
+              container_classname="mb-6"
+              subtitol={teacher.role}
+              descripcio={teacher.bio}
+              image={teacher.imageUrl}
+              alt_image={`Foto de ${teacher.name}`}
+              is_modal={false}
+              has_border={false}
+            />
           ))}
         </div>
       </div>
