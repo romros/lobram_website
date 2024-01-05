@@ -1,11 +1,12 @@
 "use client";
 
+import { markdown2html } from "@/lib/utils";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Historia(props: {
+export default async function Historia(props: {
   image: string;
   backgroundColor?: string;
   title_font?: string;
@@ -51,24 +52,40 @@ export default function Historia(props: {
     "hover:shadow-lg",
     extra_className
   );
+
+  let html_text = props.description || "Descripció";
+  if (props.description) {
+    try {
+      // Crida la funció markdown2html amb await
+      html_text = await markdown2html(props.description, {
+        p_classname: "pb-4",
+      });
+    } catch (error) {
+      console.error(
+        "Hi ha hagut un error en convertir Markdown a HTML:",
+        error
+      );
+    }
+  }
+
   return (
     <div
       className={`flex flex-col ${flexOrderClass}`}
       style={{ backgroundColor: backgroundColor }}
     >
       {/* Columna de Text */}
-      <div className="flex flex-col justify-center items-center md:w-1/2 p-8 text-center">
+      <div className="flex flex-col justify-center items-center md:w-1/2 p-8 text-justify">
         <h1 className={`${title_font} text-4xl font-semibold mb-4`}>
           {props.title || "Qui som?"}
         </h1>
-        <p
-          className={`${description_font} mb-6 lg:px-20 md:px-10 sm:px-0 py-8 text-lg sm:text-normal`}
-          dangerouslySetInnerHTML={{
-            __html: props.description || "Descripció",
-          }}
-        >
-          {/* Contingut eliminat ja que està sent inserit mitjançant dangerouslySetInnerHTML */}
-        </p>
+        <div className="mb-6 lg:px-20 md:px-10 sm:px-0 py-8 text-lg sm:text-normal">
+          <p
+            className={`${description_font}`}
+            dangerouslySetInnerHTML={{
+              __html: html_text,
+            }}
+          />
+        </div>
 
         {/* Botó que porta a les activitats . nomes mostra link si existeix link_button*/}
         {props.link_button && (
