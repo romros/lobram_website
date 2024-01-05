@@ -38,18 +38,6 @@ export const historiaSchema: SchemaTypeDefinition = {
       description: "Ordre de la historia dins la llista de històries.",
     },
     {
-      name: "lang",
-      type: "string",
-      title: "Language",
-      description: "Language of the historia",
-      options: {
-        list: [
-          { title: "Català", value: "ca" },
-          { title: "Castellano", value: "es" },
-        ],
-      },
-    },
-    {
       name: "image",
       type: "image",
       title: "Image",
