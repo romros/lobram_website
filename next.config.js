@@ -15,5 +15,6 @@ module.exports = {
         pathname: "/api/**",
       },
     ],
+    domains: ["cdn.sanity.io"],
   },
 };

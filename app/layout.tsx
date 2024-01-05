@@ -1,7 +1,7 @@
 import "@/app/ui/globals.css";
 
 import { Metadata } from "next";
-import { Header } from "@/app/ui/header";
+import { HeaderLoBram } from "@/app/ui/headerLoBram";
 import { overlock, quattrocento } from "@/app/ui/fonts";
 import Footer from "@/app/ui/footer";
 
@@ -46,7 +46,7 @@ export default async function RootLayout({
       </head>
 
       <body className={`${quattrocento.className} bg-blue-50 text-gray-700`}>
-        <Header links={Object.values(links)} />
+        <HeaderLoBram links={Object.values(links)} />
         {children}
         <Footer />
       </body>

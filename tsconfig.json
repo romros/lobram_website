@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -31,7 +31,7 @@
     ".next/types/**/*.ts",
     "app/[...page]",
     "app/[[...page.tsx]]",
-    "app/ui/header.tsx",
+    "app/ui/headerLoBram.tsx",
     "app/ui/MainNavMenu.tsx_nofunciona"
   ],
   "exclude": ["node_modules"]

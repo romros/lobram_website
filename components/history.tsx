@@ -4,21 +4,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 
-export default async function Historia(props: {
+type LocalizedText = {
+  [lang: string]: string;
+};
+
+type HistoriaProps = {
+  lang?: string;
   image: string;
   backgroundColor?: string;
   title_font?: string;
   description_font?: string;
   foto_esquerra?: boolean;
-  title?: string;
-  description?: string;
-  text_button?: string;
+  title?: LocalizedText;
+  description?: LocalizedText;
+  text_button?: LocalizedText;
   background_color_button?: string;
   text_color_button?: string;
   link_button?: string;
   extra_className?: string;
   is_markdown?: boolean;
-}) {
+};
+
+export default async function Historia(props: HistoriaProps) {
+  let current_lang = props.lang || "ca";
   let backgroundColor = props.backgroundColor || "";
   let title_font = props.title_font || "";
   let description_font = props.description_font || "";
@@ -43,11 +51,11 @@ export default async function Historia(props: {
     extra_className
   );
 
-  let html_text = props.description || "Descripció";
+  let html_text = props.description?.[current_lang] || "Descripció";
 
   if (is_markdown) {
     // Crida la funció markdown2html amb await
-    html_text = await markdown2html(props.description || "", {
+    html_text = await markdown2html(props.description?.[current_lang] || "", {
       p_classname: "pb-4",
     });
   }
@@ -60,7 +68,7 @@ export default async function Historia(props: {
       {/* Columna de Text */}
       <div className="flex flex-col justify-center items-center md:w-1/2 p-8 text-justify">
         <h1 className={`${title_font} text-4xl font-semibold mb-4`}>
-          {props.title || "Qui som?"}
+          {props.title?.[current_lang] || "Qui som?"}
         </h1>
         <div className="mb-6 lg:px-20 md:px-10 sm:px-0 py-8 text-lg sm:text-normal">
           <p
@@ -77,7 +85,7 @@ export default async function Historia(props: {
             href={props.link_button}
             className={cn(buttonClass, buttonVariants({ variant: "default" }))}
           >
-            {props.text_button || "Veure activitats"}
+            {props.text_button?.[current_lang] || "Veure activitats"}
           </Link>
         )}
       </div>
@@ -101,7 +109,6 @@ export default async function Historia(props: {
               minWidth: "100%",
               minHeight: "100%",
               objectFit: "cover",
-              animation: "fadein 10s",
             }}
             fill
           />
@@ -109,7 +116,4 @@ export default async function Historia(props: {
       </div>
     </div>
   );
-}
-function ismarkdown(description: string) {
-  throw new Error("Function not implemented.");
 }
