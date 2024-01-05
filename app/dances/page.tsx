@@ -1,9 +1,9 @@
 import Hero from "@/components/hero";
-import EnsenyantsTreball from "../ui/ensenyants_treball";
-import GrupsDeTreballSection from "../ui/grup_de_treball";
-import { FastContactForm } from "../ui/contact_form";
+import EnsenyantsTreball from "./ui/ensenyants_treball";
+import GrupsDeTreballSection from "./ui/grup_de_treball";
+import { FastContactForm } from "./ui/contact_form";
 
-export default function ActivitiesPage() {
+export default function DancesPage() {
   return (
     <main>
       <div className="flex flex-col lg:flex-row justify-center items-stretch w-full ">

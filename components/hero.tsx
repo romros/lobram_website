@@ -22,8 +22,8 @@ export default function Hero(props: {
       <Image
         src={props.backgroundImage}
         alt="Background"
-        layout="fill" // Makes the image fill the container
-        objectFit="cover" // Keeps aspect ratio and covers the entire area
+        fill
+        style={{ objectFit: "cover" }}
         className="z-0" // Ensure the image is in the background
       />
       <div className="bg-black bg-opacity-10 absolute top-0 right-0 bottom-0 left-0"></div>

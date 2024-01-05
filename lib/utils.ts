@@ -14,7 +14,7 @@ function isSimpleTextNode(node: Parent | Node): node is Node {
   return node.type === "text" && !("children" in node);
 }
 // Funció per determinar si un string és Markdown
-function isMarkdown(text: string): boolean {
+export function isMarkdown(text: string): boolean {
   const tree = remark().parse(text);
 
   // Comprova si algun dels nodes no és un text pla

@@ -1,10 +1,8 @@
-"use client";
-
-import { markdown2html } from "@/lib/utils";
+import { cn, markdown2html } from "@/lib/utils";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { buttonVariants } from "@/components/ui/button";
 
 export default async function Historia(props: {
   image: string;
@@ -19,53 +17,39 @@ export default async function Historia(props: {
   text_color_button?: string;
   link_button?: string;
   extra_className?: string;
+  is_markdown?: boolean;
 }) {
-  const [hover, setHover] = useState(false);
-
   let backgroundColor = props.backgroundColor || "";
   let title_font = props.title_font || "";
   let description_font = props.description_font || "";
   let reverse = props.foto_esquerra == undefined ? false : props.foto_esquerra;
-  let extra_className =
-    props.extra_className ||
-    clsx(
-      !props.text_color_button ? "text-white" : "",
-      !props.background_color_button ? "bg-blue-700" : ""
-    );
+  let extra_className = props.extra_className;
+  let is_markdown = props.is_markdown == undefined ? false : props.is_markdown;
 
   const flexOrderClass = reverse ? "md:flex-row-reverse" : "md:flex-row";
 
   let buttonStyle: any = {};
-  let buttonStyleHover: any = {};
   if (props.background_color_button) {
-    buttonStyle.backgroundColor = props.background_color_button;
-    buttonStyleHover.filter = "brightness(80%)";
-    buttonStyleHover.backgroundColor = props.background_color_button;
+    buttonStyle.backgroundColor =
+      props.background_color_button || "bg-blue-900";
   }
   if (props.text_color_button) {
     buttonStyle.color = props.text_color_button;
   }
 
   const buttonClass = clsx(
-    "inline-block font-quattrocento px-6 py-2 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-opacity-50",
-    "hover:bg-opacity-80",
-    "hover:shadow-lg",
+    "inline-block font-quattrocento px-6 py-2 rounded-md",
+    buttonStyle,
     extra_className
   );
 
   let html_text = props.description || "Descripció";
-  if (props.description) {
-    try {
-      // Crida la funció markdown2html amb await
-      html_text = await markdown2html(props.description, {
-        p_classname: "pb-4",
-      });
-    } catch (error) {
-      console.error(
-        "Hi ha hagut un error en convertir Markdown a HTML:",
-        error
-      );
-    }
+
+  if (is_markdown) {
+    // Crida la funció markdown2html amb await
+    html_text = await markdown2html(props.description || "", {
+      p_classname: "pb-4",
+    });
   }
 
   return (
@@ -91,10 +75,7 @@ export default async function Historia(props: {
         {props.link_button && (
           <Link
             href={props.link_button}
-            className={buttonClass}
-            style={hover ? buttonStyleHover : buttonStyle}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            className={cn(buttonClass, buttonVariants({ variant: "default" }))}
           >
             {props.text_button || "Veure activitats"}
           </Link>
@@ -115,10 +96,20 @@ export default async function Historia(props: {
             src={props.image}
             alt="props.title"
             sizes="100vw"
-            layout="fill"
+            style={{
+              zIndex: -1,
+              minWidth: "100%",
+              minHeight: "100%",
+              objectFit: "cover",
+              animation: "fadein 10s",
+            }}
+            fill
           />
         </div>
       </div>
     </div>
   );
+}
+function ismarkdown(description: string) {
+  throw new Error("Function not implemented.");
 }

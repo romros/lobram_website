@@ -1,0 +1,123 @@
+"use client";
+
+import * as React from "react";
+import Link from "next/link";
+import clsx from "clsx";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+
+// Estructura de dades simplificada
+type SubMenuData = {
+  title: string;
+  href: string;
+};
+
+type MenuItemData = {
+  title: string;
+  href: string;
+  submenu?: SubMenuData[];
+};
+
+// Type per als links
+type LinksRecord = Record<string, MenuItemData>;
+
+interface MainNavProps {
+  links: LinksRecord;
+}
+
+// Componets NavigationMenu, NavigationMenuList, etc. han de ser definits o importats.
+
+export function MainNavMenu({ links }: MainNavProps) {
+  const pathname = usePathname();
+  return (
+    <header className="supports-backdrop-blur: bg-slate-50/95 sticky top-0 z-50 overflow-visible py-3 backdrop-blur dark:bg-gray-900/75">
+      <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
+        <NavigationMenu className="flex items-center">
+          <NavigationMenuList className=" space-x-2 ">
+            {/* Genera els items del menú principal basant-te en l'objecte links */}
+            {Object.values(links).map((link, index) => {
+              if ("submenu" in link) {
+                // Si l'element té un submenú, genera un NavigationMenuItem amb submenú
+                return (
+                  <NavigationMenuItem key={link.title}>
+                    <NavigationMenuTrigger>{link.title}</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid gap-3 p-4 md:w-[500px] lg:w-[600px]">
+                        {link.submenu?.map((submenuItem, index2) => (
+                          <ListItem
+                            key={`{index1}.{index2}`}
+                            title={submenuItem.title}
+                            href={submenuItem.href}
+                            className={clsx(
+                              "inline-block rounded px-2 py-1 font-medium text-gray-900 dark:text-gray-100 sm:px-3 sm:py-2",
+                              pathname === submenuItem.href
+                                ? "bg-gray-200 dark:bg-gray-700"
+                                : "hover:bg-gray-200 dark:hover:bg-gray-700"
+                            )}
+                          />
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                );
+              } else {
+                // Si no té submenú, genera un simple enllaç
+                return (
+                  <NavigationMenuItem key={link.title}>
+                    <Link key={index} href={link.href} legacyBehavior>
+                      <NavigationMenuLink
+                        className={clsx(
+                          navigationMenuTriggerStyle,
+                          "inline-block rounded px-2 py-1 font-medium text-gray-900 dark:text-gray-100 sm:px-3 sm:py-2",
+                          pathname === link.href
+                            ? "bg-gray-200 dark:bg-gray-700"
+                            : "hover:bg-gray-200 dark:hover:bg-gray-700"
+                        )}
+                      >
+                        {link.title}
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                );
+              }
+            })}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+    </header>
+  );
+}
+
+// Component ListItem igual que abans
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, href, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          href={href}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";

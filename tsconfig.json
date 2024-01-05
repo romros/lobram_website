@@ -30,7 +30,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/[...page]",
-    "app/[[...page.tsx]]"
+    "app/[[...page.tsx]]",
+    "app/ui/header.tsx",
+    "app/ui/MainNavMenu.tsx_nofunciona"
   ],
   "exclude": ["node_modules"]
 }

@@ -21,9 +21,13 @@ export default async function RootLayout({
       title: "Inici",
       href: "/",
     },
-    activitats: {
-      title: "Activitats",
-      href: "/activitats",
+    grups: {
+      title: "Grups de treball",
+      href: "/grups_treball",
+    },
+    dances: {
+      title: "Dances sagrades",
+      href: "/dances",
     },
     lEspai: {
       title: "L'Espai",
