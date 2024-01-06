@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { IContactForm, sendContact } from "@/app/lib/actions";
 import toast, { Toaster } from "react-hot-toast";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface ContactMapProps {
   backgroundColor?: string;
@@ -98,7 +99,7 @@ export default function ContactMap(props: ContactMapProps) {
   return (
     <div className={main_div_class}>
       <div className="flex flex-col md:flex-row justify-start mt-4">
-        <div className="items-center md:w-1/3 text-center">
+        <div className="items-center md:w-1/3 text-center mx-4">
           <Toaster position="top-center" reverseOrder={false} />
           <h2 className=" text-slate-300 text-xl font-semibold text-center mb-6">
             {title || "Posa't en Contacte"}
@@ -113,7 +114,7 @@ export default function ContactMap(props: ContactMapProps) {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col justify-start items-center md:w-2/3 text-center"
+          className="flex flex-col justify-start items-center md:w-2/3 text-center text-sm"
         >
           <div className="flex flex-col md:flex-row w-full">
             <div className="md:w-1/2 p-4">
@@ -125,7 +126,9 @@ export default function ContactMap(props: ContactMapProps) {
                   className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-opacity-50"
                 />
                 {errors.name && (
-                  <p className="text-red-500">{errors.name.message}</p>
+                  <p className="text-red-300 text-left pt-1">
+                    {errors.name.message}
+                  </p>
                 )}
               </div>
 
@@ -137,7 +140,9 @@ export default function ContactMap(props: ContactMapProps) {
                   className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-opacity-50"
                 />
                 {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
+                  <p className="text-red-300 text-left pt-1">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -151,39 +156,45 @@ export default function ContactMap(props: ContactMapProps) {
                 rows={4}
               ></textarea>
               {errors.message && (
-                <p className="text-red-500">{errors.message.message}</p>
+                <p className="text-red-300 text-left pt-1">
+                  {errors.message.message}
+                </p>
               )}
             </div>
           </div>
-          <div className="flex flex-col md:flex-row w-full items-stretch">
-            <div className="flex items-start w-4/6">
-              <input
-                type="checkbox"
-                {...register("consent", {
-                  required: messages.consentRequired,
-                })}
-                className="w-4 h-4 mt-1"
-              />
-              <label className="ml-2 text-xs text-left text-slate-300">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      formulari.text_politica ||
-                      "Accepto la política de privacitat i consenteixo la recopilació de les meves dades a través d'aquest formulari.",
-                  }}
-                ></span>
-              </label>
+          <div className="flex flex-col md:flex-row justify-stretch items-center md:items-start mx-4">
+            <div className="flex flex-col  ">
+              <div className="block md:text-nowrap pr-4 items-start">
+                <input
+                  type="checkbox"
+                  {...register("consent", {
+                    required: messages.consentRequired,
+                  })}
+                  className="w-4 h-4 mt-1 "
+                />
+                <label className="ml-2 text-xs text-left text-slate-300 ">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        formulari.text_politica ||
+                        "Accepto la política de privacitat i consenteixo la recopilació de les meves dades a través d'aquest formulari.",
+                    }}
+                  ></span>
+                </label>
+              </div>
               {errors.consent && (
-                <p className="text-red-500">{errors.consent.message}</p>
+                <p className="text-red-300 text-left pt-1">
+                  {errors.consent.message}
+                </p>
               )}
             </div>
 
-            <button
+            <Button
               type="submit"
-              className="w-1/6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="w-1/6 bg-slate-700 hover:bg-slate-700/90 mt-4 md:mt-0 "
             >
               {formulari.text_enviar}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

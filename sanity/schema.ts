@@ -1,5 +1,9 @@
 import { type SchemaTypeDefinition } from "sanity";
 import { historiaSchema } from "./historiaSchema";
+import { PaginesSchema } from "./menuSchema";
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [historiaSchema as SchemaTypeDefinition], // Fix: Add 'as SchemaTypeDefinition' to cast historiaSchema as a value
+  types: [
+    historiaSchema as SchemaTypeDefinition,
+    PaginesSchema as SchemaTypeDefinition,
+  ],
 };

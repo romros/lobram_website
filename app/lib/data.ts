@@ -47,3 +47,22 @@ vull fer el fetch ordenat ascendentment per ordre
     throw new Error("Fallat al carregar les històries");
   }
 }
+
+export async function fetchPagines() {
+  const client = createClient({
+    projectId: "tb531kyh",
+    dataset: "production",
+    apiVersion: "2021-03-25",
+    useCdn: false,
+  });
+  try {
+    const pagines = await client.fetch(
+      `*[_type == "pagines"] | order(ordre asc)`
+    );
+
+    return pagines;
+  } catch (error) {
+    console.error("Error amb sanity:", error);
+    throw new Error("Fallat al carregar les pagines");
+  }
+}

@@ -4,6 +4,20 @@ import { Metadata } from "next";
 import { HeaderLoBram } from "@/app/ui/headerLoBram";
 import { overlock, quattrocento } from "@/app/ui/fonts";
 import Footer from "@/app/ui/footer";
+import { fetchPagines } from "./lib/data";
+
+// Tipus per a representar una pàgina.
+type Pagina = {
+  _id: string;
+  _rev: string;
+  _type: string;
+  href: string;
+  key: string;
+  ordre: number;
+  title: { ca: string };
+  _createdAt: string;
+  _updatedAt: string;
+};
 
 export const metadata: Metadata = {
   title: "Lo Bram",
@@ -16,28 +30,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   // load structured data from builder.io named "main-links" of type main-links
-  const links = {
-    home: {
-      title: "Inici",
-      href: "/",
-    },
-    grups: {
-      title: "Grups de treball",
-      href: "/grups_treball",
-    },
-    dances: {
-      title: "Dances sagrades",
-      href: "/dances",
-    },
-    lEspai: {
-      title: "L'Espai",
-      href: "/lespai",
-    },
-    contacte: {
-      title: "Contacte",
-      href: "/contacte",
-    },
-  };
+  const pagines = await fetchPagines();
+  // Construeix l'objecte de links a partir de les pàgines.
+  const links = pagines.reduce((acc: any, pagina: Pagina) => {
+    const key = pagina.key.toLowerCase().replace(/\s+/g, ""); // Convertir la clau en un identificador vàlid.
+    acc[key] = {
+      title: pagina.title.ca,
+      href: pagina.href,
+    };
+    return acc;
+  }, {} as Record<string, { title: string; href: string }>);
 
   return (
     <html lang="ca" className="light">

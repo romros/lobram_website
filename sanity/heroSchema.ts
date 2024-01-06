@@ -1,10 +1,10 @@
 import { type SchemaTypeDefinition } from "sanity";
 import { localizedTextFields, localizedStringFields } from "./types";
 
-export const historiaSchema: SchemaTypeDefinition = {
+export const HeroSchema: SchemaTypeDefinition = {
   type: "document",
-  title: "Historia",
-  name: "historia",
+  title: "Capçalera",
+  name: "capçalera",
   fields: [
     {
       name: "Key",
