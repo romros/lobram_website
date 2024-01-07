@@ -6,6 +6,13 @@ const nextConfig = {};
 
 module.exports = {
   ...nextConfig,
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+    /* level to write console.log as info */
+    level: 3,
+  },
   images: {
     remotePatterns: [
       {
