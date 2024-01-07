@@ -8,6 +8,7 @@
 import { revalidatePath } from "next/cache";
 import { isValidSignature, SIGNATURE_HEADER_NAME } from "@sanity/webhook";
 import { NextRequest, NextResponse } from "next/server";
+import { fetchPagines } from "@/app/lib/data";
 
 const SECRET = process.env.SANITY_REVALIDATE_SECRET;
 
@@ -37,28 +38,14 @@ export async function POST(req: NextRequest) {
 
   try {
     const { _type: type, slug } = JSON.parse(body);
-
-    console.log(`Revalidating "${type}" with slug "${slug}"`);
-    switch (type) {
-      case "pagines":
-        revalidatePath("/", "layout");
-        console.log(`Revalidated "${type}" with slug "/"`);
-        return NextResponse.json({
-          message: `Revalidated "${type}" with slug "/"`,
-        });
-      case "historia":
-        revalidatePath("/", "page");
-        return NextResponse.json({
-          message: `Revalidated "${type}" with slug "/"`,
-        });
-    }
-    console.log(`No managed type`);
-    const errorMessage = JSON.stringify({ message: "No managed type" });
-    return new NextResponse(errorMessage, {
-      status: 401,
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const pagines = await fetchPagines();
+    pagines.forEach((pagina: any) => {
+      revalidatePath(pagina.href, "page");
+      revalidatePath(pagina.href, "layout");
+      console.log(`Revalidated "${type}" with slug "${pagina.href}"`);
+    });
+    return NextResponse.json({
+      message: `Revalidated "${type}" with slug "${slug}"`,
     });
   } catch (err) {
     const errorMessage = JSON.stringify({

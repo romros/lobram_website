@@ -1,30 +1,23 @@
 import ContactMap from "@/components/contactMap";
+import { fetchMainContactMap } from "../lib/data";
 
-export default function Footer() {
+export default async function Footer() {
+  const contactData = await fetchMainContactMap();
   return (
     <footer className="bg-slate-950 text-gray-700 body-font">
       <ContactMap
-        title="Posa't en Contacte"
-        description="Si tens alguna pregunta, no dubtis en contactar-nos. <br/>Estarem encantats d'atendre't."
-        // color del fons del formulari: fosc blau
-        backgroundColor="bg-slate-900"
-        messages={{
-          nameRequired: "El nom és obligatori.",
-          emailRequired: "L'email és obligatori.",
-          messageRequired: "El missatge és obligatori.",
-          consentRequired: "Has d'acceptar el consentiment de dades.",
-          sending: "Enviant...",
-          sendSuccess: "Missatge enviat! Gràcies 🌟",
-          sendError: "No s'ha pogut enviar el missatge. Intenta-ho de nou.",
-        }}
-        mapa={{
-          idioma: "ca",
-          lloc: "Lo Bram sccl",
-        }}
+        lang="ca"
+        title={contactData.title}
+        description={contactData.description}
+        backgroundColor="bg-slate-900" // Asumint que això és un valor fixe o prové d'una altra font
+        messages={contactData.messages}
+        formulari={contactData.formulari} // Assegura't que aquest camp existeix a contactData
+        address={contactData.address}
       />
+
       <div className="container px-5 py-0  mx-auto flex items-center sm:flex-row flex-col">
         <a className="flex title-font font-medium items-center md:justify-start justify-center text-slate-200">
-          <span className="ml-3 text-xl">
+          <span className="ml-3 text-base">
             Escola d'Ensenyances de Gurdjieff
           </span>
         </a>

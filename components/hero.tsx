@@ -1,13 +1,17 @@
 import { overlock, quattrocento } from "@/app/ui/fonts";
 import Image from "next/image";
 import clsx from "clsx";
+import { LocalizedText } from "@/app/lib/definitions";
+
 export default function Hero(props: {
-  title: string;
+  lang?: string;
+  title: LocalizedText;
   height?: string;
-  subtitle?: string;
+  subtitle?: LocalizedText;
   backgroundImage: string;
   logo?: string;
 }) {
+  let current_lang = props.lang || "ca";
   // Ajusta aquestes dimensions al tamany que vulguis per al teu logo
   const logoWidth = 120;
   const logoHeight = 120;
@@ -33,14 +37,14 @@ export default function Hero(props: {
           className={`${quattrocento.className} antialiased self-stretch text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold`}
           style={{ fontWeight: 800 }}
         >
-          {props.title}
+          {props.title?.[current_lang] || "Títol"}
         </h1>
 
         {props.subtitle && (
           <p
             className={`${overlock.className} text-xl sm:text-xl md:text-2xl lg:text-5xl`}
           >
-            {props.subtitle}
+            {props.subtitle?.[current_lang] || "Subtítol"}
           </p>
         )}
         {/* Logo si hi ha logo*/}

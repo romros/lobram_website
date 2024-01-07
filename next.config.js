@@ -21,7 +21,12 @@ module.exports = {
         port: "",
         pathname: "/api/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        port: "",
+        pathname: "/**",
+      },
     ],
-    domains: ["cdn.sanity.io"],
   },
 };

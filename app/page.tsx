@@ -1,25 +1,29 @@
-import ContactMap from "@/components/contactMap";
-import Hero from "@/components/hero";
 import Historia from "@/components/history";
-import { createClient } from "next-sanity";
-import { Key } from "react";
-import { fetchHistories } from "./lib/data";
+import Hero from "@/components/hero";
+import { fetchCapsalera, fetchHistories } from "./lib/data";
+import { LocalizedText } from "./lib/definitions";
 
 export default async function Home() {
   const histories = await fetchHistories();
+  const hero = await fetchCapsalera("/");
+  // Ajusta això per assegurar que estàs passant un objecte de tipus LocalizedText
+  const hero_title: LocalizedText = hero?.title || { ca: "" };
+  const hero_subtitle: LocalizedText = hero?.subtitle || { ca: "" };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <Hero
-        title="Escola d'Ensenyances de Gurdjieff"
-        subtitle="Grups d'autoconeixement inspirats en 4rt camí"
-        backgroundImage="/foto_casa_original.jpg"
-        logo="/logo_bram.png"
+        lang="ca"
+        title={hero_title}
+        subtitle={hero_subtitle}
+        backgroundImage={hero?.image?._url || ""}
+        logo={hero?.logo?._url || ""}
       />
+
       {histories.map((history: any) => (
         <Historia
           key={history._id}
-          image={history.imageUrl}
+          image={history.image?._url || ""}
           title={history.title}
           description={history.description}
           text_button={history.text_button}
