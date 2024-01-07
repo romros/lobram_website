@@ -3,6 +3,7 @@ import { historiaSchema } from "./historiaSchema";
 import { PaginesSchema } from "./menuSchema";
 import { HeroSchema } from "./heroSchema";
 import { ContactMapSchema } from "./contactMapSchema";
+import { imageLibrarySchema } from "./imageLibrarySchema";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -10,5 +11,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     PaginesSchema as SchemaTypeDefinition,
     HeroSchema as SchemaTypeDefinition,
     ContactMapSchema as SchemaTypeDefinition,
+    imageLibrarySchema as SchemaTypeDefinition,
   ],
 };

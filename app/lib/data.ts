@@ -58,7 +58,7 @@ function processarImatgesRecursivament(obj: any): any {
 export async function fetchHistories(): Promise<SanityDocument[]> {
   try {
     const histories = await client.fetch(
-      `*[_type == "historia"] | order(Ordre asc)`
+      `*[_type == "historia"] | order(Ordre asc) {_id,"imatge": imatge->image,description,link_button,title,text_button,foto_esquerra,Ordre}`
     );
     return processarImatgesRecursivament(histories);
   } catch (error) {
@@ -81,15 +81,15 @@ export async function fetchPagines() {
 
 export async function fetchCapsalera(
   href: string
-): Promise<CapsaleraData | null> {
+): Promise<SanityDocument | null> {
   try {
-    const capsalera: CapsaleraData = await client.fetch(
-      `*[_type == "capsalera" && Pagina->href=="${href}"]{title, image, subtitle, logo}[0]`
+    const capsalera: SanityDocument = await client.fetch(
+      `*[_type == "capsalera" && Pagina->href=="${href}"]{title, "imatge": imatge->image, subtitle,"imatge_logo":imatge_logo->image}[0]`
     );
     if (!capsalera) {
       throw new Error("Header not found");
     }
-    return processarImatgesRecursivament([capsalera])[0] as CapsaleraData;
+    return processarImatgesRecursivament([capsalera])[0];
   } catch (error) {
     console.error("Error fetching header from Sanity:", error);
     throw new Error("Failed to load header");

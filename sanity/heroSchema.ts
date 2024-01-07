@@ -34,22 +34,17 @@ export const HeroSchema: SchemaTypeDefinition = {
       fields: localizedStringFields,
     },
     {
-      name: "image",
-      type: "image",
-      title: "Image",
-      description: "Image of the historia",
-      options: {
-        hotspot: true,
-      },
+      name: "imatge",
+      type: "reference",
+      title: "Imatge",
+      to: [{ type: "imageLibrary" }],
     },
     {
-      name: "logo",
-      type: "image",
+      name: "imatge_logo",
+      type: "reference",
       title: "Logo",
+      to: [{ type: "imageLibrary" }],
       description: "Logo si és que porta, si no no posar res",
-      options: {
-        hotspot: true,
-      },
     },
   ],
 };

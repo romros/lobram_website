@@ -19,14 +19,12 @@ export const historiaSchema: SchemaTypeDefinition = {
       description: "Ordre de la historia dins la llista de històries.",
     },
     {
-      name: "image",
-      type: "image",
-      title: "Image",
-      description: "Image of the historia",
-      options: {
-        hotspot: true,
-      },
+      name: "imatge",
+      type: "reference",
+      title: "Imatge",
+      to: [{ type: "imageLibrary" }],
     },
+
     {
       name: "foto_esquerra",
       type: "boolean",
@@ -53,7 +51,7 @@ export const historiaSchema: SchemaTypeDefinition = {
       type: "object",
       title: "Text Button",
       description: "Text of the button",
-      fields: localizedTextFields,
+      fields: localizedStringFields,
     },
     {
       name: "link_button",

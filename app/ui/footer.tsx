@@ -9,9 +9,9 @@ export default async function Footer() {
         lang="ca"
         title={contactData.title}
         description={contactData.description}
-        backgroundColor="bg-slate-900" // Asumint que això és un valor fixe o prové d'una altra font
+        backgroundColor="bg-slate-900"
         messages={contactData.messages}
-        formulari={contactData.formulari} // Assegura't que aquest camp existeix a contactData
+        formulari={contactData.formulari}
         address={contactData.address}
       />
 

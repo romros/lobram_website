@@ -16,14 +16,14 @@ export default async function Home() {
         lang="ca"
         title={hero_title}
         subtitle={hero_subtitle}
-        backgroundImage={hero?.image?._url || ""}
-        logo={hero?.logo?._url || ""}
+        backgroundImage={hero?.imatge?._url || ""}
+        logo={hero?.imatge_logo?._url || ""}
       />
 
       {histories.map((history: any) => (
         <Historia
           key={history._id}
-          image={history.image?._url || ""}
+          image={history.imatge?._url || ""}
           title={history.title}
           description={history.description}
           text_button={history.text_button}
