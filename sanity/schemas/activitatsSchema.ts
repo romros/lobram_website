@@ -7,6 +7,7 @@ import { CONTACT_MAP_NAME } from "./contactMapSchema";
 import { IMATGES_LIB_NAME } from "./imageLibrarySchema";
 import { MINIFITXES_NAME } from "./miniFitxaSchema";
 import { NARRATIVA_NAME } from "./narrativaSchema";
+import { IMATGE_SANITY } from "./ImatgeSchema";
 
 export const PAGINES_ACTIVITATS_NAME = "activity_page";
 export const SECTIONS_ACTIVITATS_NAME = "sections_activity";
@@ -17,6 +18,7 @@ const componentsList = [
   { type: HERO_NAME },
   { type: MINIFITXES_NAME },
   { type: NARRATIVA_NAME },
+  { type: IMATGES_LIB_NAME },
 ];
 
 export const activitySchema: SchemaTypeDefinition = {

@@ -34,6 +34,24 @@ function extractImageID(imageRef: string): string | null {
   return null;
 }
 
+function extraxtDimFromImage(imageRef: string):
+  | {
+      width: number;
+      height: number;
+    }
+  | undefined {
+  /* string: image-c3cea1e14e6923f0034a6c492f7c6d3a33eaf80f-1341x1341-png */
+  /* width: 1341, height: 1341 */
+  /* patroa buscar: -(\d+)x(\d+)\. */
+  const match = imageRef.match(/-(\d+)x(\d+)\./);
+  if (match) {
+    const width = parseInt(match[1]);
+    const height = parseInt(match[2]);
+    return { width, height };
+  }
+  return undefined;
+}
+
 function processarImatgesRecursivament(obj: any): any {
   if (Array.isArray(obj)) {
     return obj.map(processarImatgesRecursivament);
@@ -45,6 +63,11 @@ function processarImatgesRecursivament(obj: any): any {
         typeof nouObj[key].asset?._ref === "string"
       ) {
         nouObj[key]._url = urlForImage(nouObj[key]);
+        let dim = extraxtDimFromImage(nouObj[key]._url);
+        if (dim) {
+          nouObj[key].width = dim.width;
+          nouObj[key].height = dim.height;
+        }
       }
       nouObj[key] = processarImatgesRecursivament(nouObj[key]);
     }
@@ -134,10 +157,10 @@ export async function fetchActivitat(slug: string): Promise<SanityDocument> {
 
   try {
     console.log("Fetching activity with slug:", slug);
-    console.log("Query:", fullQuery);
+    //console.log("Query:", fullQuery);
     const activitat = await client.fetch(fullQuery);
     let result = processarImatgesRecursivament(activitat);
-    console.log(result);
+    //console.log(result);
     return result;
   } catch (error) {
     console.error("Error fetching activity from Sanity:", error);

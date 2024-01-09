@@ -1,13 +1,10 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Narrativa, { NarrativaProps } from "@/components/narrativa";
-import MiniFitxa from "@/components/mini_fitxa";
 
 import { fetchActivitat } from "@/app/lib/data";
-import {
-  PAGINES_ACTIVITATS_NAME,
-  SECTIONS_ACTIVITATS_NAME,
-} from "@/sanity/schemas/activitatsSchema";
+import { SECTIONS_ACTIVITATS_NAME } from "@/sanity/schemas/activitatsSchema";
+import { IMATGES_LIB_NAME } from "@/sanity/schemas/imageLibrarySchema";
 
 const mini_fitxes = [
   {
@@ -179,6 +176,21 @@ export default async function ActivitatPage({
                   titol={element.titol}
                   descripcio={element.descripcio}
                 />
+              );
+            }
+            if (element._type === IMATGES_LIB_NAME) {
+              console.log("element", element);
+              console.log("element src", element.image);
+              return (
+                <div className="flex justify-center items-center h-full w-full ">
+                  <Image
+                    src={element.image?._url || ""} // La font de la imatge
+                    objectFit="contain" // Això assegura que l'imatge no es talli
+                    alt="Descripció de la imatge"
+                    height={element.imatge?._height || 800}
+                    width={element.imatge?._width || 800}
+                  />
+                </div>
               );
             }
             return null; // Retorna null per elements que no coincideixen amb el tipus
