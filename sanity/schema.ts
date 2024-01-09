@@ -1,9 +1,12 @@
 import { type SchemaTypeDefinition } from "sanity";
-import { historiaSchema } from "./historiaSchema";
-import { PaginesSchema } from "./menuSchema";
-import { HeroSchema } from "./heroSchema";
-import { ContactMapSchema } from "./contactMapSchema";
-import { imageLibrarySchema } from "./imageLibrarySchema";
+import { historiaSchema } from "./schemas/historiaSchema";
+import { PaginesSchema } from "./schemas/menuSchema";
+import { HeroSchema } from "./schemas/heroSchema";
+import { ContactMapSchema } from "./schemas/contactMapSchema";
+import { imageLibrarySchema } from "./schemas/imageLibrarySchema";
+import { MiniCardSchema } from "./schemas/miniFitxaSchema";
+import { activitySchema } from "./schemas/activitatsSchema";
+import { NarrativaSchema } from "./schemas/narrativaSchema";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -12,5 +15,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     HeroSchema as SchemaTypeDefinition,
     ContactMapSchema as SchemaTypeDefinition,
     imageLibrarySchema as SchemaTypeDefinition,
+    MiniCardSchema as SchemaTypeDefinition,
+    activitySchema as SchemaTypeDefinition,
+    NarrativaSchema as SchemaTypeDefinition,
   ],
 };

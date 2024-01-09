@@ -46,12 +46,13 @@ export default function EnsenyantsTreball(props: EnsenyantsTreballProps) {
           {teachers.map((teacher) => (
             <MiniFitxa
               key={teacher.name}
-              titol={teacher.name}
+              lang="ca"
+              titol={{ ca: teacher.name }}
               container_classname="mb-6"
-              subtitol={teacher.role}
-              descripcio={teacher.bio}
+              subtitol={{ ca: teacher.role }}
+              descripcio={{ ca: teacher.bio }}
               image={teacher.imageUrl}
-              alt_image={`Foto de ${teacher.name}`}
+              alt_image={{ ca: `Foto de ${teacher.name}` }}
               is_modal={false}
               has_border={false}
             />

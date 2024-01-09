@@ -32,6 +32,7 @@ export async function markdown2html(
   props: {
     p_classname?: string;
     ul_classname?: string;
+    classnames?: { tag: string; classname: string }[];
   } = {}
 ): Promise<string> {
   if (!isMarkdown(text)) {
@@ -50,6 +51,21 @@ export async function markdown2html(
     // Utilitza el valor de `ul_classname` si s'ha proporcionat, si no, utilitza un valor predeterminat
     const ulClass = props.ul_classname || "list-disc list-inside indent-2";
     contentHtml = contentHtml.replace(/<ul>/g, `<ul class="${ulClass}">`);
+    contentHtml = contentHtml.replace(
+      /<li>/g,
+      `<li class="ml-4" style="list-style: circle">`
+    );
+
+    if (props.classnames) {
+      props.classnames.forEach((element) => {
+        contentHtml = contentHtml.replace(
+          new RegExp(`<${element.tag}>`, "g"),
+          `<${element.tag} class="${element.classname}">`
+        );
+      });
+    }
+
+    contentHtml = contentHtml.replace(/<h2>/g, `<h2 class="text-2xl">`);
 
     return contentHtml;
   }

@@ -1,10 +1,11 @@
 import { type SchemaTypeDefinition } from "sanity";
 import { localizedStringFields } from "./types";
 
+export const PAGINES_NAME = "pagines";
 export const PaginesSchema: SchemaTypeDefinition = {
   type: "document",
   title: "Pagines",
-  name: "pagines",
+  name: PAGINES_NAME,
   fields: [
     {
       name: "key",

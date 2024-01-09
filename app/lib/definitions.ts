@@ -13,10 +13,3 @@ export type ImageData = {
   _url?: string;
   asset: ImageAsset;
 };
-
-export type CapsaleraData = {
-  title: LocalizedText;
-  image: ImageData;
-  subtitle: LocalizedText;
-  logo: ImageData;
-};

@@ -1,10 +1,11 @@
 import { type SchemaTypeDefinition } from "sanity";
 import { localizedStringFields } from "./types";
 
+export const CONTACT_MAP_NAME = "contactMap";
 export const ContactMapSchema: SchemaTypeDefinition = {
   type: "document",
   title: "Mapa de Contacte",
-  name: "contactMap",
+  name: CONTACT_MAP_NAME,
   fields: [
     {
       name: "Key",

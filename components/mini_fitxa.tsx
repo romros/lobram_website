@@ -1,17 +1,20 @@
+import { LocalizedText } from "@/app/lib/definitions";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { cn, markdown2html } from "@/lib/utils";
 import clsx from "clsx";
 import Image from "next/image";
 
 export interface MiniFitxaProps {
+  lang?: string;
   container_classname?: string;
-  titol: string;
+  titol: LocalizedText;
   color_titol?: string;
-  subtitol: string;
+  subtitol: LocalizedText;
   color_subtitol?: string;
-  descripcio: string;
+  descripcio: LocalizedText;
   color_descripcio?: string;
   image?: string;
-  alt_image?: string;
+  alt_image?: LocalizedText;
   image_width?: number;
   image_height?: number;
   is_modal?: boolean;
@@ -20,81 +23,98 @@ export interface MiniFitxaProps {
   has_border?: boolean;
 }
 
-export default function MiniFitxa(props: MiniFitxaProps) {
-  const has_border = props.has_border || false;
+const defaultTitol: LocalizedText = {
+  ca: "Títol",
+};
+const defaultSubtitol: LocalizedText = {
+  ca: "Subtítol",
+};
+const defaultDescripcio: LocalizedText = {
+  ca: "Descripció",
+};
+const defaultAltImage: LocalizedText = {
+  ca: "Foto",
+};
 
-  const container_classname = clsx(
-    "flex items-start",
-    props.container_classname || ""
-  );
+export default async function MiniFitxa(props: MiniFitxaProps) {
+  const {
+    lang = "ca",
+    is_modal = false,
+    border_color = "",
+    has_border = false,
+    color_titol = "text-slate-200",
+    color_subtitol = "text-slate-400",
+    color_descripcio = "text-slate-300",
+    background_modal = "bg-blue-100",
+    container_classname = "",
+    titol = defaultTitol,
+    subtitol = defaultSubtitol,
+    descripcio = defaultDescripcio,
+    image = null,
+    alt_image = defaultAltImage,
+    image_width = 800,
+    image_height = 800,
+  } = props;
 
-  const button_image_classname = clsx(
+  const updatedContainerClassname = cn("flex items-start", container_classname);
+  const button_image_classname = cn(
     "flex-none w-24 h-24 mr-4 rounded-lg",
-    has_border && props.border_color
-      ? `border-${props.border_color} border-2`
-      : "",
-    has_border && !props.border_color ? "border-blue-700 border-2" : ""
+    has_border && border_color ? `border-${border_color} border-2` : "",
+    has_border && !border_color ? "border-blue-700 border-2" : ""
   );
-  const titol_classname = clsx(
-    props.color_titol || "text-slate-200",
-    "text-lg font-semibold"
-  );
-  const subtitol_classname = clsx(
-    props.color_subtitol || "text-slate-400",
-    "text-sm"
-  );
-  const descripcio_classname = clsx(
-    props.color_descripcio || "text-slate-300",
-    "text-sm"
-  );
-  const background_modal_classname = clsx(
-    "sm:max-w-[425px]",
-    props.background_modal || "bg-blue-100"
-  );
+  const titol_classname = cn(color_titol, "text-lg font-semibold");
+  const subtitol_classname = cn(color_subtitol, "text-sm");
+  const descripcio_classname = cn(color_descripcio, "text-sm");
+  const background_modal_classname = cn("sm:max-w-[425px]", background_modal);
+
+  let html_text = await markdown2html(descripcio?.[lang], {
+    p_classname: cn("pb-4 text-sm", color_descripcio),
+  });
 
   return (
-    <div key={props.titol} className={container_classname}>
-      {props.image && props.is_modal && (
+    <div key={titol[lang]} className={updatedContainerClassname}>
+      {image && is_modal && (
         <Dialog>
-          <DialogTrigger asChild>
+          {/* un classname que quan passi el ratoli sorti com clickable */}
+          <DialogTrigger asChild className="cursor-pointer">
             <Image
-              src={props.image}
-              alt={props.alt_image || `Foto de ${props.titol}`}
-              width={props.image_width || 800}
-              height={props.image_height || 800}
+              src={image}
+              alt={alt_image?.[lang] || `Foto de ${titol?.lang}`}
+              width={image_width || 800}
+              height={image_height || 800}
               className={button_image_classname}
             />
           </DialogTrigger>
           <DialogContent className={background_modal_classname}>
             <div className="grid gap-4 py-4">
               <Image
-                src={props.image}
-                alt={props.alt_image || `Foto de ${props.titol}`}
-                width={props.image_width || 800}
-                height={props.image_height || 800}
+                src={image}
+                alt={alt_image?.[lang] || `Foto de ${titol?.lang}`}
+                width={image_width || 800}
+                height={image_height || 800}
                 layout="responsive"
               />
             </div>
           </DialogContent>
         </Dialog>
       )}
-      {props.image && !props.is_modal && (
+      {image && !is_modal && (
         <Image
-          src={props.image}
-          alt={props.alt_image || `Foto de ${props.titol}`}
-          width={props.image_width || 800}
-          height={props.image_height || 800}
+          src={image}
+          alt={alt_image?.[lang] || `Foto de ${titol?.lang}`}
+          width={image_width || 800}
+          height={image_height || 800}
           className={button_image_classname}
         />
       )}
 
       <div className="flex-grow">
-        <h3 className={titol_classname}>{props.titol}</h3>
-        <p className={subtitol_classname}>{props.subtitol}</p>
+        <h3 className={titol_classname}>{titol[lang]}</h3>
+        <p className={subtitol_classname}>{subtitol[lang]}</p>
         <p
           className={descripcio_classname}
           dangerouslySetInnerHTML={{
-            __html: props.descripcio,
+            __html: html_text,
           }}
         ></p>
       </div>

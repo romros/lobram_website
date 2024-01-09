@@ -1,20 +1,27 @@
+"use client";
 import ContactMap from "@/components/contactMap";
 import { fetchMainContactMap } from "../lib/data";
+import { usePathname } from "next/navigation";
 
 export default async function Footer() {
+  const pathname = usePathname();
+  // Comprova si la ruta actual comença amb /studio/
+  const isStudioRoute = pathname.startsWith("/studio");
+
   const contactData = await fetchMainContactMap();
   return (
     <footer className="bg-slate-950 text-gray-700 body-font">
-      <ContactMap
-        lang="ca"
-        title={contactData.title}
-        description={contactData.description}
-        backgroundColor="bg-slate-900"
-        messages={contactData.messages}
-        formulari={contactData.formulari}
-        address={contactData.address}
-      />
-
+      {!isStudioRoute && (
+        <ContactMap
+          lang="ca"
+          title={contactData.title}
+          description={contactData.description}
+          backgroundColor="bg-slate-900"
+          messages={contactData.messages}
+          formulari={contactData.formulari}
+          address={contactData.address}
+        />
+      )}
       <div className="container px-5 py-0  mx-auto flex items-center sm:flex-row flex-col">
         <a className="flex title-font font-medium items-center md:justify-start justify-center text-slate-200">
           <span className="ml-3 text-base">

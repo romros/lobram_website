@@ -1,6 +1,6 @@
 import { createClient, SanityClient, SanityDocument } from "next-sanity";
-import { CapsaleraData } from "./definitions";
 import { urlForImage } from "@/sanity/lib/image";
+import { PAGINES_ACTIVITATS_NAME } from "@/sanity/schemas/activitatsSchema";
 
 // Constants globals
 const SANITY_PROJECT_ID = "tb531kyh";
@@ -67,7 +67,7 @@ export async function fetchHistories(): Promise<SanityDocument[]> {
   }
 }
 
-export async function fetchPagines() {
+export async function fetchPagines(): Promise<SanityDocument[]> {
   try {
     const pagines = await client.fetch(
       `*[_type == "pagines"] | order(ordre asc)`
@@ -106,5 +106,41 @@ export async function fetchMainContactMap(): Promise<SanityDocument> {
   } catch (error) {
     console.error("Error fetching contact map from Sanity:", error);
     throw new Error("Failed to load contact map");
+  }
+}
+
+export async function fetchActivitat(slug: string): Promise<SanityDocument> {
+  const mainQuery = `*[_type == "${PAGINES_ACTIVITATS_NAME}" && slug.current == "${slug}"][0]`;
+
+  const sectionsActivityProjection = `{
+    _key,
+    _type,
+    title,
+    from_color,
+    to_color,
+    text_color,
+    elements[] ->
+  }`;
+
+  const fullQuery = `${mainQuery}{
+    title,
+    _id,
+    _createdAt,
+    _updatedAt,
+    _rev,
+    slug,
+    sections_activity[] ${sectionsActivityProjection}
+  }`;
+
+  try {
+    console.log("Fetching activity with slug:", slug);
+    console.log("Query:", fullQuery);
+    const activitat = await client.fetch(fullQuery);
+    let result = processarImatgesRecursivament(activitat);
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Error fetching activity from Sanity:", error);
+    throw new Error("Failed to load activity");
   }
 }

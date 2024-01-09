@@ -1,10 +1,11 @@
 import { type SchemaTypeDefinition } from "sanity";
 import { localizedTextFields, localizedStringFields } from "./types";
 
+export const IMATGES_LIB_NAME = "imageLibrary";
 export const imageLibrarySchema: SchemaTypeDefinition = {
   type: "document",
   title: "Llibreria d'Imatges",
-  name: "imageLibrary",
+  name: IMATGES_LIB_NAME,
   fields: [
     {
       name: "title",
