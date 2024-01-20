@@ -32,7 +32,8 @@
     "app/[...page]",
     "app/[[...page.tsx]]",
     "app/ui/headerLoBram.tsx",
-    "app/ui/MainNavMenu.tsx_nofunciona"
+    "app/ui/MainNavMenu.tsx_nofunciona",
+    "app/dances/page.tsx.old"
   ],
   "exclude": ["node_modules"]
 }
