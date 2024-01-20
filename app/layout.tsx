@@ -23,6 +23,7 @@ export default function RootLayout({
 
       <body className={`${quattrocento.className} bg-blue-50 text-gray-700`}>
         <HeaderLoBram lang="ca" />
+
         {children}
         <Footer />
       </body>

@@ -1,6 +1,10 @@
 import { createClient, SanityClient, SanityDocument } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 import { PAGINES_ACTIVITATS_NAME } from "@/sanity/schemas/activitatsSchema";
+import { SECTIONS_ACTIVITATS_NAME } from "@/sanity/schemas/activitatsSchema";
+import { IMATGES_LIB_NAME } from "@/sanity/schemas/imageLibrarySchema";
+import { MINIFITXES_NAME } from "@/sanity/schemas/miniFitxaSchema";
+import { INFO_GENERAL_NAME } from "@/sanity/schemas/infoGeneralSchema";
 
 // Constants globals
 const SANITY_PROJECT_ID = "tb531kyh";
@@ -106,9 +110,13 @@ export async function fetchCapsalera(
   href: string
 ): Promise<SanityDocument | null> {
   try {
-    const capsalera: SanityDocument = await client.fetch(
-      `*[_type == "capsalera" && Pagina->href=="${href}"]{title, "imatge": imatge->image, subtitle,"imatge_logo":imatge_logo->image}[0]`
-    );
+    const query = `*[_type == "capsalera" ]{"href":Pagina->href, title, "imatge": imatge->image,subtitle,"imatge_logo":imatge_logo->image}`;
+    console.log("Query:", query);
+    const capsaleres: SanityDocument = await client.fetch(query);
+
+    const capsalera = capsaleres.find((c: any) => c.href === href);
+    console.log("Capsalera:", capsalera);
+
     if (!capsalera) {
       throw new Error("Header not found");
     }
@@ -132,6 +140,22 @@ export async function fetchMainContactMap(): Promise<SanityDocument> {
   }
 }
 
+export async function fetchActivitats(): Promise<SanityDocument[]> {
+  const mainQuery = `*[_type == "${PAGINES_ACTIVITATS_NAME}"] {
+    slug
+    ,"slug":slug.current 
+    ,"title": title
+    ,"imatge": imatge->image
+  }`;
+  try {
+    const activitats = await client.fetch(mainQuery);
+    return processarImatgesRecursivament(activitats);
+  } catch (error) {
+    console.error("Error fetching activities from Sanity:", error);
+    throw new Error("Failed to load activities");
+  }
+}
+
 export async function fetchActivitat(slug: string): Promise<SanityDocument> {
   const mainQuery = `*[_type == "${PAGINES_ACTIVITATS_NAME}" && slug.current == "${slug}"][0]`;
 
@@ -139,9 +163,7 @@ export async function fetchActivitat(slug: string): Promise<SanityDocument> {
     _key,
     _type,
     title,
-    from_color,
-    to_color,
-    text_color,
+    class_name_section,
     elements[] ->
   }`;
 
@@ -157,13 +179,84 @@ export async function fetchActivitat(slug: string): Promise<SanityDocument> {
 
   try {
     console.log("Fetching activity with slug:", slug);
-    //console.log("Query:", fullQuery);
+    console.log("Query:", fullQuery);
     const activitat = await client.fetch(fullQuery);
-    let result = processarImatgesRecursivament(activitat);
-    //console.log(result);
+    console.log("Response:", activitat);
+    //
+    const activitat_processada = await processarSeccionsActivitat(activitat);
+    let result = processarImatgesRecursivament(activitat_processada);
+
     return result;
   } catch (error) {
     console.error("Error fetching activity from Sanity:", error);
     throw new Error("Failed to load activity");
+  }
+}
+
+async function processarSeccionsActivitat(
+  activitat: any
+): Promise<SanityDocument[]> {
+  const sections = activitat?.[SECTIONS_ACTIVITATS_NAME] || [];
+  const processed_section: SanityDocument[] = await Promise.all(
+    sections.map(async (section: any) => {
+      // Comprovar si la propietat elements existeix i no és null
+      let processedElements: SanityDocument[] | undefined;
+      if (section.elements && Array.isArray(section.elements)) {
+        // Creem una còpia de cada element de la secció
+        processedElements = await Promise.all(
+          section.elements.map(async (element: any) => {
+            if (element._type === MINIFITXES_NAME && element.image?._ref) {
+              // Afegim la imatge processada a una còpia de l'element
+              const image = await fetchImageLibByID(element.image._ref);
+              const result: SanityDocument = { ...element, _image: image };
+
+              return result;
+            }
+            const result: SanityDocument = { ...element };
+            return result;
+          })
+        );
+      }
+      const result: SanityDocument = {
+        ...section,
+        elements: processedElements || [],
+      };
+      return result;
+    })
+  );
+  // activitat trieem SECTION_ACTIVITATS_NAME i despres afegim les noves
+  const result = {
+    ...activitat,
+    [SECTIONS_ACTIVITATS_NAME]: processed_section,
+  };
+  return result;
+}
+
+export async function fetchImageLibByID(id: string): Promise<SanityDocument> {
+  try {
+    const element = await client.fetch(
+      `*[_type == "imageLibrary" && _id == "${id}"][0]`
+    );
+    //let result = processarImatgesRecursivament(element);
+    let result = element;
+
+    return result;
+  } catch (error) {
+    console.error("Error fetching element from Sanity:", error);
+    throw new Error("Failed to load element");
+  }
+}
+
+export async function fetchInfoGeneral(): Promise<SanityDocument> {
+  try {
+    const query = `*[_type == "infoGeneral" ]{
+      title, subtitle, "imatge_logo":imatge_logo->image
+    } [0]`;
+    const infoGeneral = await client.fetch(query);
+
+    return processarImatgesRecursivament(infoGeneral);
+  } catch (error) {
+    console.error("Error fetching info general from Sanity:", error);
+    throw new Error("Failed to load info general");
   }
 }

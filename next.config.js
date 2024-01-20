@@ -9,7 +9,7 @@ module.exports = {
       fullUrl: true,
     },
     /* level to write console.log as info */
-    level: 3,
+    level: 1,
   },
   images: {
     remotePatterns: [

@@ -47,5 +47,12 @@ export const HeroSchema: SchemaTypeDefinition = {
       to: [{ type: "imageLibrary" }],
       description: "Logo si és que porta, si no no posar res",
     },
+    /*height = "h-[85vh]",*/
+    {
+      name: "height",
+      type: "string",
+      title: "Alçada",
+      description: "Alçada de la capçalera en Tailwindcss. ex: h-[85vh]",
+    },
   ],
 };

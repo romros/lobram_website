@@ -6,6 +6,7 @@ import { IMATGES_LIB_NAME } from "./schemas/imageLibrarySchema";
 import { MINIFITXES_NAME } from "./schemas/miniFitxaSchema";
 import { PAGINES_ACTIVITATS_NAME } from "./schemas/activitatsSchema";
 import { NARRATIVA_NAME } from "./schemas/narrativaSchema";
+import { INFO_GENERAL_NAME } from "./schemas/infoGeneralSchema";
 
 export const myStructure = (S: any) =>
   S.list()
@@ -58,6 +59,22 @@ export const myStructure = (S: any) =>
         ),
       S.listItem()
         .title("Configuració")
-        .child(S.documentTypeList(PAGINES_NAME).title("Menú Principal")),
-      // Aquí pots afegir més seccions si és necessari
+        .child(
+          S.list()
+            .title("Configuració")
+            .items([
+              S.listItem()
+                .title("Pàgina d'informació general")
+                .child(
+                  S.documentTypeList(INFO_GENERAL_NAME).title(
+                    "Pàgina d'informació general"
+                  )
+                ),
+              S.listItem()
+                .title("Menú Principal")
+                .child(
+                  S.documentTypeList(PAGINES_NAME).title("Menú Principal")
+                ),
+            ])
+        ),
     ]);

@@ -29,7 +29,7 @@ Aquest és més que un curs; és una invitació a:
 * Cultivar una atenció conscient i constant.
 * Conèixer les nostres pròpies personalitats, l'esforç conscient i la felicitat de superar els nostres falsos límits.
 * Connectar amb la teva essència i descobrir el teu propi propòsit. Sense oblidar en tot moment l'alegria i l'humor.`,
-        }}
+        }}  
       />
       <MiniFitxa
         lang="ca"

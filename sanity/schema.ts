@@ -7,6 +7,7 @@ import { imageLibrarySchema } from "./schemas/imageLibrarySchema";
 import { MiniCardSchema } from "./schemas/miniFitxaSchema";
 import { activitySchema } from "./schemas/activitatsSchema";
 import { NarrativaSchema } from "./schemas/narrativaSchema";
+import { InfoGeneralSchema } from "./schemas/infoGeneralSchema";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -18,5 +19,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     MiniCardSchema as SchemaTypeDefinition,
     activitySchema as SchemaTypeDefinition,
     NarrativaSchema as SchemaTypeDefinition,
+    InfoGeneralSchema,
   ],
 };

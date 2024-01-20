@@ -1,5 +1,5 @@
 "use client";
-import ContactMap from "@/components/contactMap";
+import ContactMap from "@/components/contactMap/contactMap";
 import { fetchMainContactMap } from "../lib/data";
 import { usePathname } from "next/navigation";
 
@@ -9,17 +9,38 @@ export default async function Footer() {
   const isStudioRoute = pathname.startsWith("/studio");
 
   const contactData = await fetchMainContactMap();
+  //console.log(contactData);
+  const lang = "ca";
+
+  const messages_lang = {
+    nameRequired: contactData?.messages?.nameRequired?.[lang],
+    sendError: contactData?.messages?.sendError?.[lang],
+    sending: contactData?.messages?.sending?.[lang],
+    sendSuccess: contactData?.messages?.sendSuccess?.[lang],
+    consentRequired: contactData?.messages?.consentRequired?.[lang],
+    emailRequired: contactData?.messages?.emailRequired?.[lang],
+    messageRequired: contactData?.messages?.messageRequired?.[lang],
+  };
+
+  const formulari_lang = {
+    text_enviar: contactData?.formulari?.text_enviar?.[lang],
+    text_missatge: contactData?.formulari?.text_missatge?.[lang],
+    text_email: contactData?.formulari?.text_email?.[lang],
+    text_politica: contactData?.formulari?.text_politica?.[lang],
+    text_nom: contactData?.formulari?.text_nom?.[lang],
+  };
+  //console.log(messages_lang);
   return (
     <footer className="bg-slate-950 text-gray-700 body-font">
       {!isStudioRoute && (
         <ContactMap
-          lang="ca"
-          title={contactData.title}
-          description={contactData.description}
+          lang={lang}
+          title={contactData.title?.[lang]}
+          description={contactData.description?.[lang]}
           backgroundColor="bg-slate-900"
-          messages={contactData.messages}
-          formulari={contactData.formulari}
-          address={contactData.address}
+          messages={messages_lang}
+          formulari={formulari_lang}
+          address={contactData.address?.[lang]}
         />
       )}
       <div className="container px-5 py-0  mx-auto flex items-center sm:flex-row flex-col">

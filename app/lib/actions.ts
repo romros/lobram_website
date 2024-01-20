@@ -3,6 +3,7 @@
 import { z } from "zod";
 import validator from "validator";
 import { Resend } from "resend";
+import { IContactForm } from "components/contactMap/contactMap";
 
 // This is temporary
 export type State = {
@@ -11,13 +12,6 @@ export type State = {
   };
   message?: string | null;
 };
-
-export interface IContactForm {
-  name: string;
-  email: string;
-  message: string;
-  consent: boolean;
-}
 
 const resend = new Resend(process.env.NEXT_RESEND_API_KEY!);
 

@@ -11,9 +11,9 @@ type LocalizedText = {
 };
 
 export interface NarrativaProps {
-  titol: LocalizedText;
+  titol?: LocalizedText;
   titol_classname?: string;
-  descripcio: LocalizedText;
+  descripcio?: LocalizedText;
   descripcio_classname?: string;
   p_classname?: string;
 }
@@ -31,24 +31,32 @@ export default async function Narrativa(props: NarrativaProps) {
   );
   let p_classname = cn("pb-4", props.p_classname || "text-base");
 
-  const contentHtml = await markdown2html(props.descripcio[lang], {
-    p_classname: p_classname,
-    classnames: [
-      { tag: "h1", classname: titol_classname },
-      {
-        tag: "h2",
-        classname: `${quattrocento.className} text-center text-lg lg:text-xl font-semibold mb-4`,
-      },
-    ],
-  });
+  let contentHtml = null;
+  if (props.descripcio && props.descripcio[lang]) {
+    contentHtml = await markdown2html(props.descripcio[lang], {
+      p_classname: p_classname,
+      classnames: [
+        { tag: "h1", classname: titol_classname },
+        {
+          tag: "h2",
+          classname: `${quattrocento.className} text-center text-lg lg:text-xl font-semibold mb-4`,
+        },
+      ],
+    });
+  }
 
   return (
     <div className=" text-justify">
-      <h1 className={titol_classname}>{props.titol[lang] || "Titol"}</h1>
-      <div
-        className={`${descripcio_classname}`}
-        dangerouslySetInnerHTML={{ __html: contentHtml }}
-      />
+      {props.titol && props.titol[lang] && (
+        <h1 className={titol_classname}>{props.titol[lang] || "Titol"}</h1>
+      )}
+
+      {contentHtml && (
+        <div
+          className={`${descripcio_classname}`}
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
+      )}
     </div>
   );
 }

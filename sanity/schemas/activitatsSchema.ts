@@ -8,6 +8,8 @@ import { IMATGES_LIB_NAME } from "./imageLibrarySchema";
 import { MINIFITXES_NAME } from "./miniFitxaSchema";
 import { NARRATIVA_NAME } from "./narrativaSchema";
 import { IMATGE_SANITY } from "./ImatgeSchema";
+import { localizedStringFields } from "./types";
+import { array, object } from "zod";
 
 export const PAGINES_ACTIVITATS_NAME = "activity_page";
 export const SECTIONS_ACTIVITATS_NAME = "sections_activity";
@@ -25,17 +27,26 @@ export const activitySchema: SchemaTypeDefinition = {
   name: PAGINES_ACTIVITATS_NAME,
   title: "Pàgina d'Activitat",
   type: "document",
+
   fields: [
     {
       name: "title",
       title: "Títol",
-      type: "string",
+      type: "object",
+      fields: localizedStringFields,
     },
     {
       name: "slug",
       title: "Slug",
       type: "slug",
       description: "Aquest text s'utilitzarà per construir la URL",
+    },
+    {
+      name: "imatge",
+      type: "reference",
+      title: "Imatge",
+      to: [{ type: "imageLibrary" }],
+      description: "Imatge associada a la pàgina",
     },
     {
       name: SECTIONS_ACTIVITATS_NAME,
@@ -46,33 +57,36 @@ export const activitySchema: SchemaTypeDefinition = {
           name: SECTION_ACTIVITATS_NAME,
           title: "Secció",
           type: "object",
+          groups: [
+            {
+              title: "Contingut",
+              name: "contingut",
+              default: true,
+            },
+            {
+              title: "Estil",
+              name: "estil",
+            },
+          ],
           fields: [
             {
               name: "title",
               title: "Nom de la Secció",
               type: "string",
+              group: "contingut",
             },
             {
-              name: "from_color",
-              title: "Color de fons inicial. ",
+              name: "class_name_section",
+              title: "Classe d'estil de la secció",
               type: "string",
-              description:
-                "Veure paleta a https://tailwindcss.com/docs/customizing-colors. Exemple: blue-400",
+              group: "estil",
             },
-            {
-              name: "to_color",
-              title: "Color de fons final",
-              type: "string",
-            },
-            {
-              name: "text_color",
-              title: "Color del text",
-              type: "string",
-            },
+
             {
               name: "elements",
               title: "Elements",
               type: "array",
+              group: "contingut",
               of: [
                 {
                   name: "element",
@@ -87,4 +101,17 @@ export const activitySchema: SchemaTypeDefinition = {
       ],
     },
   ],
+
+  preview: {
+    select: {
+      title: "title",
+      slug: "slug",
+    },
+    prepare({ title, slug }) {
+      return {
+        title: `Pàgina d'activitat: ${title.ca}`,
+        subtitle: `slug: ${slug.current}`,
+      };
+    },
+  },
 };
